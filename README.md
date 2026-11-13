@@ -46,6 +46,7 @@ Empresas de transporte e distribuição sofrem perdas financeiras significativas
 │     Power BI Dashboard    │  KPIs Executivos: OTIF, Custo/KM e Semáforo Manutenção
 └───────────────────────────┘
 ```
+
 ### Modelo Entidade-Relacionamento (Origem OLTP - PostgreSQL)
 ![Modelo Entidade-Relacionamento](docs/images/erd_postgres_tms.png)
 
@@ -55,6 +56,64 @@ Empresas de transporte e distribuição sofrem perdas financeiras significativas
 - **`dim_veiculos`**: Cadastro da frota, consumo esperado (km/l) e regra de semáforo `status_manutencao` (`Normal`, `Alerta - Próximo da Revisão`, `Crítico - Manutenção Vencida`).
 - **`dim_motoristas`**: Dados cadastrais, categoria de habilitação e status operacional.
 - **`dim_rotas`**: Origem, destino, trajeto formatado, distância e tempo estimado.
+
+```mermaid
+erDiagram
+    dim_veiculos ||--o{ fct_viagens : "veiculo_id (1:N)"
+    dim_veiculos ||--o{ fct_custos_frota : "veiculo_id (1:N)"
+    dim_motoristas ||--o{ fct_viagens : "motorista_id (1:N)"
+    dim_rotas ||--o{ fct_viagens : "rota_id (1:N)"
+
+    dim_veiculos {
+        int veiculo_id PK
+        string placa
+        string modelo
+        float consumo_medio_esperado_kml
+        float km_atual
+        float km_proxima_manutencao
+        string status_manutencao
+    }
+
+    dim_motoristas {
+        int motorista_id PK
+        string nome
+        string categoria_cnh
+        string status
+    }
+
+    dim_rotas {
+        int rota_id PK
+        string origem
+        string destino
+        string trajeto
+        float distancia_km
+        float tempo_estimado_horas
+    }
+
+    fct_viagens {
+        int viagem_id PK
+        int veiculo_id FK
+        int motorista_id FK
+        int rota_id FK
+        datetime data_prevista_entrega
+        datetime data_real_entrega
+        int is_on_time
+        int is_in_full
+        int is_otif
+    }
+
+    fct_custos_frota {
+        int custo_id PK
+        int veiculo_id FK
+        date data_referencia
+        float km_rodado
+        float custo_combustivel
+        float custo_manutencao
+        float custo_total
+        float custo_por_km
+        float consumo_real_kml
+    }
+```
 
 ---
 
@@ -91,7 +150,7 @@ CALCULATE(COUNTROWS(dim_veiculos), dim_veiculos[status_manutencao] <> "Normal")
 ### Passo a Passo
 1. **Clonar o repositório e ativar o ambiente virtual:**
    ```bash
-   git clone https://github.com/kloutruben/fleet-logistics-otif.git
+   git clone [https://github.com/kloutruben/fleet-logistics-otif.git](https://github.com/kloutruben/fleet-logistics-otif.git)
    cd fleet-logistics-otif
    python3 -m venv .venv
    source .venv/bin/activate
@@ -104,7 +163,7 @@ CALCULATE(COUNTROWS(dim_veiculos), dim_veiculos[status_manutencao] <> "Normal")
    DB_PORT=5432
    DB_NAME=tms_db
    DB_USER=postgres
-   DB_PASS=2552
+   DB_PASS=postgres
    ```
 
 3. **Inicializar o banco transacional PostgreSQL e gerar massa de dados:**
@@ -120,19 +179,20 @@ CALCULATE(COUNTROWS(dim_veiculos), dim_veiculos[status_manutencao] <> "Normal")
    airflow dags test fleet_logistics_otif_daily
    ```
    Os ficheiros otimizados para BI serão exportados automaticamente para `data/gold_export/*.parquet`.
-   
-## 6. Evidências de Execução do Pipeline
 
-### Linhagem de Dados (dbt Lineage Graph — Bronze -> Silver -> Gold)
-![dbt Lineage Graph](docs/images/02_dbt_lineage.png)
+---
 
-### Execução dos Modelos e Testes de Qualidade (dbt Core)
-![Execução dbt](docs/images/01_dbt_pipeline.png)
-![Execução dbt](docs/images/01_dbt_pipeline2.png)
+## 6. Evidências de Execução (Logs & Data Warehouse)
 
-### Consulta Analítica na Camada Gold (DuckDB)
-![Camada Gold DuckDB](docs/images/03_duckdb_dbeaver.png)
-![Camada Gold DuckDB](docs/images/03_duckdb_dbeaver2.png)
+### Transformação e Testes de Qualidade (`dbt build`)
+![Execução dbt](docs/images/dbt_pipeline.png)
+![Execução dbt](docs/images/dbt_pipeline2.png)
+
+### Orquestração End-to-End (`Apache Airflow`)
+![Execução Airflow](docs/images/02_dbt_lineage.png)
+
+### Camada Gold no Data Warehouse (`DuckDB`)
+![Camada Gold](docs/images/star_schema_gold.png)
 
 ---
 
