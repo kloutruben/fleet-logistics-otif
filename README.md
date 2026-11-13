@@ -130,7 +130,7 @@ CALCULATE(COUNTROWS(dim_veiculos), dim_veiculos[status_manutencao] <> "Normal")
 
 ### Consulta Analítica na Camada Gold (DuckDB)
 ![Camada Gold DuckDB](docs/images/03_duckdb_dbeaver.png)
-![Camada Gold DuckDB](docs/images/03_duckdb_dbeaver.png)
+![Camada Gold DuckDB](docs/images/03_duckdb_dbeaver2.png)
 
 ---
 
