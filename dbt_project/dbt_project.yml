@@ -1,0 +1,21 @@
+name: 'fleet_logistics_dw'
+version: '1.0.0'
+config-version: 2
+
+profile: 'fleet_duckdb'
+
+model-paths: ["models"]
+target-path: "target"
+clean-targets: ["target", "dbt_packages"]
+
+models:
+  fleet_logistics_dw:
+    bronze:
+      +schema: bronze
+      +materialized: view
+    silver:
+      +schema: silver
+      +materialized: table
+    gold:
+      +schema: gold
+      +materialized: table

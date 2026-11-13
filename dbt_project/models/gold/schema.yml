@@ -1,0 +1,36 @@
+version: 2
+
+models:
+  - name: dim_veiculos
+    columns:
+      - name: veiculo_id
+        tests: [unique, not_null]
+  - name: dim_motoristas
+    columns:
+      - name: motorista_id
+        tests: [unique, not_null]
+  - name: dim_rotas
+    columns:
+      - name: rota_id
+        tests: [unique, not_null]
+  - name: fct_viagens
+    columns:
+      - name: viagem_id
+        tests: [unique, not_null]
+      - name: veiculo_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_veiculos')
+              field: veiculo_id
+      - name: rota_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_rotas')
+              field: rota_id
+      - name: is_otif
+        tests:
+          - not_null
+          - accepted_values:
+              values: [0, 1]

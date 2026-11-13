@@ -1,0 +1,7 @@
+fleet_duckdb:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: '../data/duckdb/logistics_dw.duckdb'
+      threads: 4

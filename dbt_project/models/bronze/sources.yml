@@ -1,0 +1,12 @@
+version: 2
+
+sources:
+  - name: tms_raw
+    schema: raw
+    tables:
+      - name: veiculos
+      - name: motoristas
+      - name: rotas
+      - name: viagens
+      - name: entregas_itens
+      - name: abastecimentos_manutencoes
