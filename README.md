@@ -185,14 +185,15 @@ CALCULATE(COUNTROWS(dim_veiculos), dim_veiculos[status_manutencao] <> "Normal")
 ## 6. Evidências de Execução (Logs & Data Warehouse)
 
 ### Transformação e Testes de Qualidade (`dbt build`)
-![Execução dbt](docs/images/dbt_pipeline.png)
-![Execução dbt](docs/images/dbt_pipeline2.png)
+![Execução dbt](docs/images/01_dbt_pipeline.png)
+![Execução dbt](docs/images/01_dbt_pipeline2.png)
 
 ### Orquestração End-to-End (`Apache Airflow`)
 ![Execução Airflow](docs/images/02_dbt_lineage.png)
 
 ### Camada Gold no Data Warehouse (`DuckDB`)
-![Camada Gold](docs/images/star_schema_gold.png)
+![Camada Gold](docs/images/03_duckdb_dbeaver2.png)
+![Camada Gold](docs/images/03_duckdb_dbeaver.png)
 
 ---
 
