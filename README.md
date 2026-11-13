@@ -118,9 +118,22 @@ CALCULATE(COUNTROWS(dim_veiculos), dim_veiculos[status_manutencao] <> "Normal")
    airflow dags test fleet_logistics_otif_daily
    ```
    Os ficheiros otimizados para BI serão exportados automaticamente para `data/gold_export/*.parquet`.
+   
+## 6. Evidências de Execução do Pipeline
+
+### Linhagem de Dados (dbt Lineage Graph — Bronze -> Silver -> Gold)
+![dbt Lineage Graph](docs/images/02_dbt_lineage.png)
+
+### Execução dos Modelos e Testes de Qualidade (dbt Core)
+![Execução dbt](docs/images/01_dbt_pipeline.png)
+![Execução dbt](docs/images/01_dbt_pipeline2.png)
+
+### Consulta Analítica na Camada Gold (DuckDB)
+![Camada Gold DuckDB](docs/images/03_duckdb_dbeaver.png)
+![Camada Gold DuckDB](docs/images/03_duckdb_dbeaver.png)
 
 ---
 
-## 6. Implementações Futuras (Roadmap)
+## 7. Implementações Futuras (Roadmap)
 - [ ] **Machine Learning (`Scikit-Learn`):** Modelo de classificação para prever a probabilidade de atraso por rota, veículo e motorista antes do despacho.
 - [ ] **Streaming em Tempo Real (`Apache Kafka`):** Ingestão de telemetria GPS para cálculo dinâmico de ETA e alertas instantâneos de desvio de rota.
