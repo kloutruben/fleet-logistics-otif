@@ -46,6 +46,8 @@ Empresas de transporte e distribuição sofrem perdas financeiras significativas
 │     Power BI Dashboard    │  KPIs Executivos: OTIF, Custo/KM e Semáforo Manutenção
 └───────────────────────────┘
 ```
+### Modelo Entidade-Relacionamento (Origem OLTP - PostgreSQL)
+![Modelo Entidade-Relacionamento](docs/images/erd_postgres_tms.png)
 
 ### Modelagem Dimensional (Camada Gold - Star Schema)
 - **`fct_viagens`**: Granularidade por viagem; consolida lead time real, desvio de entrega (horas), `is_on_time`, `is_in_full` e `is_otif`.
