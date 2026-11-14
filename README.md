@@ -56,7 +56,7 @@ Empresas de transporte e distribuição sofrem perdas financeiras significativas
 - **`dim_veiculos`**: Cadastro da frota, consumo esperado (km/l) e regra de semáforo `status_manutencao` (`Normal`, `Alerta - Próximo da Revisão`, `Crítico - Manutenção Vencida`).
 - **`dim_motoristas`**: Dados cadastrais, categoria de habilitação e status operacional.
 - **`dim_rotas`**: Origem, destino, trajeto formatado, distância e tempo estimado.
-- 
+
 ![Modelagem Dimensional](docs/images/star_schema_gold_diagram.png)
 
 
