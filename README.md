@@ -108,14 +108,12 @@ CALCULATE(COUNTROWS(dim_veiculos), dim_veiculos[status_manutencao] <> "Normal")
 
 ### Transformação e Testes de Qualidade (`dbt build`)
 ![Execução dbt - Parte 1](docs/images/01_dbt_pipeline.png)
-![Execução dbt - Parte 2](docs/images/01_dbt_pipeline2.png)
 
 ### Linhagem de Dados (`dbt Lineage`)
 ![Linhagem dbt](docs/images/02_dbt_lineage.png)
 
 ### Camada Gold no Data Warehouse (`DuckDB / DBeaver`)
 ![Camada Gold - Parte 1](docs/images/03_duckdb_dbeaver.png)
-![Camada Gold - Parte 2](docs/images/03_duckdb_dbeaver2.png)
 
 ---
 
@@ -125,8 +123,11 @@ CALCULATE(COUNTROWS(dim_veiculos), dim_veiculos[status_manutencao] <> "Normal")
 
 ---
 
+---
+
 ## Autor
 
 **Ruben Kuyota**  
 *Data Analyst & Data Engineer*  
+- LinkedIn: [linkedin.com/in/rubenkuyota](https://www.linkedin.com/in/rubenkuyota/)
 - GitHub: [@kloutruben](https://github.com/kloutruben)
