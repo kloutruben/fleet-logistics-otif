@@ -21,31 +21,9 @@ Empresas de transporte e distribuição sofrem perdas financeiras significativas
 
 ## 2. Arquitetura da Solução & Fluxo de Dados
 
-```text
-┌───────────────────────────┐
-│   PostgreSQL (OLTP/TMS)   │  6 tabelas normalizadas (3.000+ viagens, cargas, frota)
-└─────────────┬─────────────┘
-              │  Extração Idempotente (Python + Pandas)
-              ▼
-┌───────────────────────────┐
-│   DuckDB - Camada Bronze  │  Schema: raw (dados brutos + metadado _extracted_at)
-└─────────────┬─────────────┘
-              │  Limpeza & Regras de Negócio (dbt Core)
-              ▼
-┌───────────────────────────┐
-│   DuckDB - Camada Silver  │  Schema: main_silver (flags is_on_time, is_in_full)
-└─────────────┬─────────────┘
-              │  Modelagem Star Schema & Data Quality Tests (dbt Core)
-              ▼
-┌───────────────────────────┐
-│   DuckDB - Camada Gold    │  Schema: main_gold (3 Dimensões + 2 Tabelas Fato)
-└─────────────┬─────────────┘
-              │  Exportação Parquet & Orquestração Diária (Apache Airflow)
-              ▼
-┌───────────────────────────┐
-│     Power BI Dashboard    │  KPIs Executivos: OTIF, Custo/KM e Semáforo Manutenção
-└───────────────────────────┘
-```
+![Fluxo de Dados e Arquitetura Medalhão](docs/images/pipeline_fluxo_dados.png)
+
+### Modelo Entidade-Relacionamento (Origem OLTP - PostgreSQL)
 
 ### Modelo Entidade-Relacionamento (Origem OLTP - PostgreSQL)
 ![Modelo Entidade-Relacionamento](docs/images/erd_postgres_tms.png)
