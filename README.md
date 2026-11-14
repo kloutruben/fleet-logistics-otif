@@ -46,6 +46,7 @@ Empresas de transporte e distribuição sofrem perdas financeiras significativas
 │     Power BI Dashboard    │  KPIs Executivos: OTIF, Custo/KM e Semáforo Manutenção
 └───────────────────────────┘
 ```
+
 ### Modelo Entidade-Relacionamento (Origem OLTP - PostgreSQL)
 ![Modelo Entidade-Relacionamento](docs/images/erd_postgres_tms.png)
 
@@ -55,6 +56,8 @@ Empresas de transporte e distribuição sofrem perdas financeiras significativas
 - **`dim_veiculos`**: Cadastro da frota, consumo esperado (km/l) e regra de semáforo `status_manutencao` (`Normal`, `Alerta - Próximo da Revisão`, `Crítico - Manutenção Vencida`).
 - **`dim_motoristas`**: Dados cadastrais, categoria de habilitação e status operacional.
 - **`dim_rotas`**: Origem, destino, trajeto formatado, distância e tempo estimado.
+
+![Modelagem Dimensional](docs/images/star_schema_gold_diagram.png)
 
 ---
 
@@ -91,7 +94,7 @@ CALCULATE(COUNTROWS(dim_veiculos), dim_veiculos[status_manutencao] <> "Normal")
 ### Passo a Passo
 1. **Clonar o repositório e ativar o ambiente virtual:**
    ```bash
-   git clone https://github.com/kloutruben/fleet-logistics-otif.git
+   git clone [https://github.com/kloutruben/fleet-logistics-otif.git](https://github.com/kloutruben/fleet-logistics-otif.git)
    cd fleet-logistics-otif
    python3 -m venv .venv
    source .venv/bin/activate
@@ -104,7 +107,7 @@ CALCULATE(COUNTROWS(dim_veiculos), dim_veiculos[status_manutencao] <> "Normal")
    DB_PORT=5432
    DB_NAME=tms_db
    DB_USER=postgres
-   DB_PASS=2552
+   DB_PASS=senha
    ```
 
 3. **Inicializar o banco transacional PostgreSQL e gerar massa de dados:**
@@ -120,22 +123,32 @@ CALCULATE(COUNTROWS(dim_veiculos), dim_veiculos[status_manutencao] <> "Normal")
    airflow dags test fleet_logistics_otif_daily
    ```
    Os ficheiros otimizados para BI serão exportados automaticamente para `data/gold_export/*.parquet`.
-   
-## 6. Evidências de Execução do Pipeline
 
-### Linhagem de Dados (dbt Lineage Graph — Bronze -> Silver -> Gold)
-![dbt Lineage Graph](docs/images/02_dbt_lineage.png)
+---
 
-### Execução dos Modelos e Testes de Qualidade (dbt Core)
-![Execução dbt](docs/images/01_dbt_pipeline.png)
-![Execução dbt](docs/images/01_dbt_pipeline2.png)
+## 6. Evidências de Execução (Logs & Data Warehouse)
 
-### Consulta Analítica na Camada Gold (DuckDB)
-![Camada Gold DuckDB](docs/images/03_duckdb_dbeaver.png)
-![Camada Gold DuckDB](docs/images/03_duckdb_dbeaver2.png)
+### Transformação e Testes de Qualidade (`dbt build`)
+![Execução dbt - Parte 1](docs/images/01_dbt_pipeline.png)
+![Execução dbt - Parte 2](docs/images/01_dbt_pipeline2.png)
+
+### Linhagem de Dados (`dbt Lineage`)
+![Linhagem dbt](docs/images/02_dbt_lineage.png)
+
+### Camada Gold no Data Warehouse (`DuckDB / DBeaver`)
+![Camada Gold - Parte 1](docs/images/03_duckdb_dbeaver.png)
+![Camada Gold - Parte 2](docs/images/03_duckdb_dbeaver2.png)
 
 ---
 
 ## 7. Implementações Futuras (Roadmap)
 - [ ] **Machine Learning (`Scikit-Learn`):** Modelo de classificação para prever a probabilidade de atraso por rota, veículo e motorista antes do despacho.
 - [ ] **Streaming em Tempo Real (`Apache Kafka`):** Ingestão de telemetria GPS para cálculo dinâmico de ETA e alertas instantâneos de desvio de rota.
+
+---
+
+## Autor
+
+**Ruben Kuyota**  
+*Data Analyst & Data Engineer*  
+- GitHub: [@kloutruben](https://github.com/kloutruben)
