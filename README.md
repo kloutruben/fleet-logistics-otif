@@ -57,8 +57,8 @@ Empresas de transporte e distribuição sofrem perdas financeiras significativas
 - **`dim_motoristas`**: Dados cadastrais, categoria de habilitação e status operacional.
 - **`dim_rotas`**: Origem, destino, trajeto formatado, distância e tempo estimado.
 - 
-![Execução dbt](docs/images/star_schema_gold_diagram.png)
-star_schema_gold_diagram
+![Modelagem Dimensional](docs/images/star_schema_gold_diagram.png)
+
 
 ---
 
