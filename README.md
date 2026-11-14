@@ -107,7 +107,7 @@ CALCULATE(COUNTROWS(dim_veiculos), dim_veiculos[status_manutencao] <> "Normal")
    DB_PORT=5432
    DB_NAME=tms_db
    DB_USER=postgres
-   DB_PASS=sua_senha_aqui
+   DB_PASS=senha
    ```
 
 3. **Inicializar o banco transacional PostgreSQL e gerar massa de dados:**
