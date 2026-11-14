@@ -59,7 +59,6 @@ Empresas de transporte e distribuição sofrem perdas financeiras significativas
 
 ![Modelagem Dimensional](docs/images/star_schema_gold_diagram.png)
 
-
 ---
 
 ## 3. Qualidade de Dados e Requisitos Não Funcionais
@@ -108,7 +107,7 @@ CALCULATE(COUNTROWS(dim_veiculos), dim_veiculos[status_manutencao] <> "Normal")
    DB_PORT=5432
    DB_NAME=tms_db
    DB_USER=postgres
-   DB_PASS=2552
+   DB_PASS=sua_senha_aqui
    ```
 
 3. **Inicializar o banco transacional PostgreSQL e gerar massa de dados:**
@@ -130,21 +129,24 @@ CALCULATE(COUNTROWS(dim_veiculos), dim_veiculos[status_manutencao] <> "Normal")
 ## 6. Evidências de Execução (Logs & Data Warehouse)
 
 ### Transformação e Testes de Qualidade (`dbt build`)
-![Execução dbt](docs/images/01_dbt_pipeline.png)
-![Execução dbt](docs/images/01_dbt_pipeline2.png)
+![Execução dbt - Parte 1](docs/images/01_dbt_pipeline.png)
+![Execução dbt - Parte 2](docs/images/01_dbt_pipeline2.png)
 
-### Orquestração End-to-End (`Apache Airflow`)
-![Execução Airflow](docs/images/02_dbt_lineage.png)
+### Linhagem de Dados (`dbt Lineage`)
+![Linhagem dbt](docs/images/02_dbt_lineage.png)
 
-### Camada Gold no Data Warehouse (`DuckDB`)
-![Camada Gold](docs/images/03_duckdb_dbeaver.png)
-![Camada Gold](docs/images/03_duckdb_dbeaver2.png)
+### Camada Gold no Data Warehouse (`DuckDB / DBeaver`)
+![Camada Gold - Parte 1](docs/images/03_duckdb_dbeaver.png)
+![Camada Gold - Parte 2](docs/images/03_duckdb_dbeaver2.png)
 
 ---
 
 ## 7. Implementações Futuras (Roadmap)
 - [ ] **Machine Learning (`Scikit-Learn`):** Modelo de classificação para prever a probabilidade de atraso por rota, veículo e motorista antes do despacho.
 - [ ] **Streaming em Tempo Real (`Apache Kafka`):** Ingestão de telemetria GPS para cálculo dinâmico de ETA e alertas instantâneos de desvio de rota.
+
+---
+
 ## Autor
 
 **Ruben Kuyota**  
